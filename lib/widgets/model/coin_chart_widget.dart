@@ -1,8 +1,11 @@
+import 'package:crypto_app/models/data/data_model.dart';
 import 'package:crypto_app/widgets/model/toggle_button.dart';
+import 'package:crypto_app/widgets/parametrs_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/data/chart_data.dart';
 import '../../models/data/usd_model.dart';
+import '../coin_logo.dart';
 import 'chart_widget.dart';
 
 class CoinChartWidget extends StatefulWidget {
@@ -11,27 +14,42 @@ class CoinChartWidget extends StatefulWidget {
     required this.coinPrice,
     required this.outputDate,
     required this.data,
+    required this.coin,
   }) : super(key: key);
 
   final UsdModel coinPrice;
+  final DataModel coin;
   final String outputDate;
   final List<ChartData> data;
 
   @override
+  // ignore: library_private_types_in_public_api
   _CoinChartWidgetState createState() => _CoinChartWidgetState();
 }
 
 class _CoinChartWidgetState extends State<CoinChartWidget> {
-  List<bool> _isSelected = [true, true, false, false, false];
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 400,
+    return SizedBox(
+      height: 500,
       child: Column(
         children: [
+          const SizedBox(
+            height: 15,
+          ),
+          Align(
+              alignment: Alignment.topCenter,
+              child: SizedBox(
+                  height: 100, child: CoinLogoWidget(coin: widget.coin))),
+          Align(
+            alignment: Alignment.topCenter,
+            child: Text(
+              widget.coin.name,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+          ),
           Text(
-            '\$' + widget.coinPrice.price.toStringAsFixed(2),
+            '\$${widget.coinPrice.price.toStringAsFixed(2)}',
             style: Theme.of(context).textTheme.headlineMedium,
           ),
           Text(
@@ -43,35 +61,44 @@ class _CoinChartWidgetState extends State<CoinChartWidget> {
             ),
           ),
           ChartWidget(
+              coin: widget.coin,
               coinPrice: widget.coinPrice,
-              color: Colors.green,
               data: widget.data),
-          ToggleButtons(
-            borderRadius: BorderRadius.circular(8.0),
-            borderColor: Colors.indigoAccent,
-            color: Colors.white,
-            fillColor: Colors.green,
-            selectedColor: Colors.white,
-            selectedBorderColor: Colors.indigoAccent,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ToggleButtonWidget(name: "Today"),
-              ToggleButtonWidget(name: "1W"),
-              ToggleButtonWidget(name: "1M"),
-              ToggleButtonWidget(name: "3M"),
-              ToggleButtonWidget(name: "6M"),
+              Column(
+                children: [
+                  ParametrWidget(
+                      parametr: 'CMC Rank', value: ' ${widget.coin.cmcRank}'),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  ParametrWidget(
+                      parametr: 'Total Supply',
+                      value:
+                          ' ${widget.coin.totalSupply.toString().substring(0, 6)}'),
+                ],
+              ),
+              SizedBox(
+                width: 60,
+              ),
+              Column(
+                children: [
+                  ParametrWidget(
+                      parametr: 'Volume_24h',
+                      value: ' ${widget.coinPrice.volume24h}'),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  ParametrWidget(
+                      parametr: 'Market Cap',
+                      value:
+                          ' ${widget.coinPrice.marketCap.toString().substring(0, 6)}'),
+                ],
+              )
             ],
-            isSelected: _isSelected,
-            onPressed: (int newIndex) {
-              setState(() {
-                _isSelected[newIndex] = true;
-                for (int i = 0; i < _isSelected.length; i++) {
-                  if (i != newIndex) {
-                    _isSelected[i] = false;
-                  }
-                }
-              });
-            },
-          ),
+          )
         ],
       ),
     );

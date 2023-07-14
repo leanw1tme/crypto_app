@@ -1,16 +1,15 @@
 # crypto_app
 
-A new Flutter project.
+Мобильное приложения для отслеживанием состояния криптовалют на Flutter.
 
-## Getting Started
+## Список функционала
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
++Использование API ключа криптовалют от coinmarketcap.com
++Использование второго API ключа под логотипы
++Bloc State Management
++Внедрил иньекцию зависимостей с помощью Get_it
++Адаптировал приложение под любой размер экрана
++Использовал Equatable для упрощения процесса сравнения экземпляров одного и того же объекта без необходимости шаблонных кодов переопределения «==» и хэш-кодов.
++Добавил функциональность pull-to-refresh для обновления данных списка
++Создал диаграмму исторических данных криптовалюты с помощью syncfusion_flutter_charts
++Использовал адаптацию цвета интерфейса под любую криптовалюту

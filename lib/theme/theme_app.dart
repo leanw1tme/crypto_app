@@ -14,15 +14,16 @@ class CryptoApp extends StatelessWidget {
           color: Colors.white,
         ),
         textTheme: const TextTheme(
-          titleLarge: TextStyle(
-              color: Colors.black, fontSize: 26, fontWeight: FontWeight.w400),
-          titleMedium: TextStyle(fontSize: 35, fontWeight: FontWeight.w500),
-          labelLarge: TextStyle(fontSize: 25),
-          labelMedium: TextStyle(
-            fontSize: 17,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
+            titleLarge: TextStyle(
+                color: Colors.black, fontSize: 26, fontWeight: FontWeight.w400),
+            titleMedium: TextStyle(fontSize: 35, fontWeight: FontWeight.w500),
+            labelLarge: TextStyle(fontSize: 25),
+            labelMedium: TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.w500,
+            ),
+            bodySmall: TextStyle(fontSize: 16, color: Colors.grey),
+            displaySmall: TextStyle(fontSize: 16)),
         useMaterial3: true,
       ),
       home: const HomeScreen(),

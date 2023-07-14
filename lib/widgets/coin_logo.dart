@@ -16,12 +16,11 @@ class CoinLogoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var coinIconUrl =
         "https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/";
-    TextTheme textStyle = Theme.of(context).textTheme;
 
     return CachedNetworkImage(
       imageUrl: (("$coinIconUrl${coin.symbol}.png").toLowerCase()),
       errorWidget: (context, url, error) =>
-          SvgPicture.asset('assets/icons/dollar.svg'),
+          SvgPicture.asset('assets/img/dollar.svg'),
     );
   }
 }

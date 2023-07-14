@@ -1,67 +1,46 @@
+import 'package:crypto_app/models/data/data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../models/data/chart_data.dart';
 import '../../models/data/usd_model.dart';
+import '../../theme/colors.dart';
 
 class ChartWidget extends StatelessWidget {
   const ChartWidget({
     Key? key,
     required this.data,
     required this.coinPrice,
-    required this.color,
+    required this.coin,
   }) : super(key: key);
 
   final List<ChartData> data;
   final UsdModel coinPrice;
-  final Color color;
+  final DataModel coin;
   @override
   Widget build(BuildContext context) {
+    final color = CryptoColors.parse(coin.symbol);
     return Expanded(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.only(left: 16.0),
-              height: 96.0,
-              width: double.infinity,
-              child: SfCartesianChart(
-                plotAreaBorderWidth: 0,
-                primaryXAxis: CategoryAxis(isVisible: false),
-                primaryYAxis: CategoryAxis(isVisible: false),
-                legend: Legend(isVisible: false),
-                tooltipBehavior: TooltipBehavior(enable: false),
-                series: <ChartSeries<ChartData, String>>[
-                  LineSeries<ChartData, String>(
-                    dataSource: data,
-                    xValueMapper: (ChartData sales, _) => sales.year.toString(),
-                    yValueMapper: (ChartData sales, _) => sales.value,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          color == Colors.green
-              ? Container()
-              : Container(
-                  padding: const EdgeInsets.all(4.0),
-                  margin: const EdgeInsets.only(right: 16.0),
-                  alignment: Alignment.center,
-                  width: 72,
-                  height: 36,
-                  decoration: BoxDecoration(
-                      color: coinPrice.percentChange_7d >= 0
-                          ? Colors.green
-                          : Colors.red,
-                      borderRadius: BorderRadius.circular(16.0)),
-                  child: Text(
-                    coinPrice.percentChange_7d.toStringAsFixed(2) + "%",
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                ),
-        ],
+      child: SizedBox(
+        height: 50.0,
+        width: double.infinity,
+        child: SfCartesianChart(
+          plotAreaBorderWidth: 0,
+          primaryXAxis: CategoryAxis(isVisible: false),
+          primaryYAxis: CategoryAxis(isVisible: false),
+          legend: const Legend(isVisible: false),
+          tooltipBehavior: TooltipBehavior(enable: false),
+          series: <ChartSeries<ChartData, String>>[
+            SplineAreaSeries<ChartData, String>(
+                dataSource: data,
+                xValueMapper: (ChartData sales, _) => sales.year.toString(),
+                yValueMapper: (ChartData sales, _) => sales.value,
+                gradient: LinearGradient(
+                    colors: [color, Colors.white],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter)),
+          ],
+        ),
       ),
     );
   }
