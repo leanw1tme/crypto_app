@@ -1,24 +1,35 @@
 import 'dart:math';
 
+import 'package:crypto_app/models/data/usd_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
-import '../models/chart_data.dart';
-import '../models/data_model.dart';
+import '../models/data/chart_data.dart';
+import '../models/data/data_model.dart';
+import '../theme/colors.dart';
+import '../widgets/coin_logo.dart';
 import '../widgets/model/coin_chart_widget.dart';
 
-class ModelScreen extends StatelessWidget {
-  const ModelScreen({super.key, required this.coin});
+class ModelScreen extends StatefulWidget {
+  const ModelScreen({super.key, required this.coin, required this.price});
 
   final DataModel coin;
+  final UsdModel price;
 
   @override
+  State<ModelScreen> createState() => _ModelScreenState();
+}
+
+class _ModelScreenState extends State<ModelScreen> {
+  @override
   Widget build(BuildContext context) {
+    final color = CryptoColors.parse(widget.coin.symbol);
     Random random = Random();
     int next(int min, int max) => random.nextInt(max - min);
-    var coinPrice = coin.quoteModel.usdModel;
-    DateTime parseDate =
-        DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(coinPrice.lastUpdated);
+    var coinPrice = widget.coin.quoteModel.usdModel;
+    DateTime parseDate = new DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+        .parse(coinPrice.lastUpdated);
     var inputDate = DateTime.parse(parseDate.toString());
     var outputFormat = DateFormat('MM/dd/yyyy hh:mm a');
     var outputDate = outputFormat.format(inputDate);
@@ -49,88 +60,35 @@ class ModelScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(coin.symbol),
+        title: Text(widget.coin.symbol),
+        foregroundColor: Colors.white,
+        backgroundColor: color,
       ),
-      body: CustomScrollView(
-        slivers: [
+      body: Column(
+        children: [
+          const SizedBox(
+            height: 15,
+          ),
+          Align(
+              alignment: Alignment.topCenter,
+              child: SizedBox(
+                  height: 100, child: CoinLogoWidget(coin: widget.coin))),
+          Align(
+            alignment: Alignment.topCenter,
+            child: Text(
+              widget.coin.name,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+          ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: Text(
+              '\$' + widget.price.price.toString().substring(0, 8),
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
+          ),
           CoinChartWidget(
               coinPrice: coinPrice, outputDate: outputDate, data: data),
-          SliverToBoxAdapter(
-            child: Container(
-              height: 600,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 16.0),
-                    height: 500.0,
-                    width: double.infinity,
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text(
-                              "Circulating Supply: ",
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                            Text(
-                              coin.circulatingSupply.toString(),
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 8.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text(
-                              "Max Supply: ",
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                            Text(
-                              coin.maxSupply.toString(),
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 8.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text(
-                              "Market pairs: ",
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                            Text(
-                              coin.numMarketPairs.toString(),
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 8.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text(
-                              "Market Cap: ",
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                            Text(
-                              coin.quoteModel.usdModel.marketCap
-                                  .toStringAsFixed(2),
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 8.0),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          )
         ],
       ),
     );

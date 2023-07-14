@@ -16,9 +16,10 @@ class CryptoApp extends StatelessWidget {
         textTheme: const TextTheme(
           titleLarge: TextStyle(
               color: Colors.black, fontSize: 26, fontWeight: FontWeight.w400),
-          titleMedium: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
+          titleMedium: TextStyle(fontSize: 35, fontWeight: FontWeight.w500),
+          labelLarge: TextStyle(fontSize: 25),
           labelMedium: TextStyle(
-            fontSize: 16,
+            fontSize: 17,
             fontWeight: FontWeight.w500,
           ),
         ),

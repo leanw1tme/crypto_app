@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-import '../../models/chart_data.dart';
-import '../../models/usd_model.dart';
+import '../../models/data/chart_data.dart';
+import '../../models/data/usd_model.dart';
 
-class CoinChartWidget2 extends StatelessWidget {
-  const CoinChartWidget2({
+class ChartWidget extends StatelessWidget {
+  const ChartWidget({
     Key? key,
     required this.data,
     required this.coinPrice,

@@ -10,13 +10,14 @@ class ToggleButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: (MediaQuery.of(context).size.width - 38) / 5,
+      width: 50,
+      height: 50,
       alignment: Alignment.center,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text(
           name,
-          style: Theme.of(context).textTheme.subtitle1,
+          style: Theme.of(context).textTheme.titleMedium,
         ),
       ),
     );
