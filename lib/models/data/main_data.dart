@@ -1,5 +1,4 @@
-import 'data_model.dart';
-import 'status_model.dart';
+import 'data.dart';
 
 class MainData {
   final StatusModel statusModel;

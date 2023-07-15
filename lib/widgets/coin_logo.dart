@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../models/data/data_model.dart';
+import 'package:crypto_app/models/models.dart';
 
+//Отдельный API для лого криптовалют
 class CoinLogoWidget extends StatelessWidget {
   final DataModel coin;
   const CoinLogoWidget({

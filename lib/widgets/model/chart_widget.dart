@@ -1,9 +1,8 @@
-import 'package:crypto_app/models/data/data_model.dart';
+import 'package:crypto_app/models/models.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-import '../../models/data/chart_data.dart';
-import '../../models/data/usd_model.dart';
 import '../../theme/colors.dart';
 
 class ChartWidget extends StatelessWidget {
@@ -22,8 +21,9 @@ class ChartWidget extends StatelessWidget {
     final color = CryptoColors.parse(coin.symbol);
     return Expanded(
       child: SizedBox(
-        height: 50.0,
+        height: 50.0.h,
         width: double.infinity,
+        //Построение диаграммы криптовалюты
         child: SfCartesianChart(
           plotAreaBorderWidth: 0,
           primaryXAxis: CategoryAxis(isVisible: false),
@@ -39,6 +39,18 @@ class ChartWidget extends StatelessWidget {
                     colors: [color, Colors.white],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter)),
+            SplineSeries(
+                dataSource: data,
+                xValueMapper: (ChartData sales, _) => sales.year.toString(),
+                yValueMapper: (ChartData sales, _) => sales.value,
+                width: 4.w,
+                color: color,
+                markerSettings: MarkerSettings(
+                    isVisible: true,
+                    borderWidth: 3.w,
+                    borderColor: color,
+                    color: Colors.white,
+                    shape: DataMarkerType.circle))
           ],
         ),
       ),

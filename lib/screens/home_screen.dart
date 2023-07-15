@@ -1,6 +1,7 @@
 import 'package:animated_search_bar/animated_search_bar.dart';
-import 'package:crypto_app/widgets/home/list_coins.dart';
+import 'package:crypto_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,19 +16,15 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         shadowColor: Colors.white,
-        excludeHeaderSemantics: true,
-        title: Text(
-          'Криптовалюта',
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
         actions: [
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
+              padding: EdgeInsets.symmetric(horizontal: 15.w),
               child: Expanded(
+                //Поиск (не закончен)
                 child: AnimatedSearchBar(
                   label: 'Криптовалюта',
-                  labelStyle: const TextStyle(fontSize: 25),
+                  labelStyle: TextStyle(fontSize: 25.sp),
                   onChanged: (value) {
                     setState(() {});
                   },

@@ -1,12 +1,7 @@
-import 'package:crypto_app/models/data/data_model.dart';
-import 'package:crypto_app/widgets/model/toggle_button.dart';
-import 'package:crypto_app/widgets/parametrs_widget.dart';
+import 'package:crypto_app/models/models.dart';
+import 'package:crypto_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-
-import '../../models/data/chart_data.dart';
-import '../../models/data/usd_model.dart';
-import '../coin_logo.dart';
-import 'chart_widget.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CoinChartWidget extends StatefulWidget {
   const CoinChartWidget({
@@ -31,16 +26,16 @@ class _CoinChartWidgetState extends State<CoinChartWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 500,
+      height: 500.h,
       child: Column(
         children: [
-          const SizedBox(
-            height: 15,
+          SizedBox(
+            height: 15.h,
           ),
           Align(
               alignment: Alignment.topCenter,
               child: SizedBox(
-                  height: 100, child: CoinLogoWidget(coin: widget.coin))),
+                  height: 100.h, child: CoinLogoWidget(coin: widget.coin))),
           Align(
             alignment: Alignment.topCenter,
             child: Text(
@@ -56,7 +51,7 @@ class _CoinChartWidgetState extends State<CoinChartWidget> {
             widget.outputDate,
             style: TextStyle(
               fontFamily: 'Roboto',
-              fontSize: 18,
+              fontSize: 18.sp,
               color: Colors.grey,
             ),
           ),
@@ -72,7 +67,7 @@ class _CoinChartWidgetState extends State<CoinChartWidget> {
                   ParametrWidget(
                       parametr: 'CMC Rank', value: ' ${widget.coin.cmcRank}'),
                   SizedBox(
-                    height: 25,
+                    height: 25.h,
                   ),
                   ParametrWidget(
                       parametr: 'Total Supply',
@@ -81,7 +76,7 @@ class _CoinChartWidgetState extends State<CoinChartWidget> {
                 ],
               ),
               SizedBox(
-                width: 60,
+                width: 60.w,
               ),
               Column(
                 children: [
@@ -89,7 +84,7 @@ class _CoinChartWidgetState extends State<CoinChartWidget> {
                       parametr: 'Volume_24h',
                       value: ' ${widget.coinPrice.volume24h}'),
                   SizedBox(
-                    height: 25,
+                    height: 25.h,
                   ),
                   ParametrWidget(
                       parametr: 'Market Cap',

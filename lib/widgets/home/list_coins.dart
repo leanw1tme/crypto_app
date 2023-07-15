@@ -1,13 +1,11 @@
-import 'dart:async';
-
-import 'package:crypto_app/models/bloc/crypto_bloc.dart';
-import 'package:crypto_app/models/data/main_data.dart';
+import 'package:crypto_app/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 
-import '../../repositories/crypto_repository.dart';
-import 'coin_widget.dart';
+import 'package:crypto_app/repositories/repositories.dart';
+import 'package:crypto_app/widgets/widgets.dart';
 
 class ListCoins extends StatefulWidget {
   const ListCoins({super.key});
@@ -27,6 +25,7 @@ class _ListCoinsState extends State<ListCoins> {
 
   @override
   Widget build(BuildContext context) {
+    //Внедрение pull-to-refresh для обновления значении криптовалют
     return RefreshIndicator(
       onRefresh: () async {
         _cryptoListBloc.add(LoadCryptoList());
@@ -34,6 +33,7 @@ class _ListCoinsState extends State<ListCoins> {
       child: BlocBuilder<CryptoBloc, CryptoState>(
         bloc: _cryptoListBloc,
         builder: (context, state) {
+          //Успешно загружено
           if (state is CryptoLoaded) {
             return FutureBuilder<MainData>(
                 future: state.coinsList,
@@ -47,18 +47,19 @@ class _ListCoinsState extends State<ListCoins> {
                   return const Center(child: CircularProgressIndicator());
                 });
           }
+          //Ошибка загрузки
           if (state is CryptoLoadingFailure) {
             return Center(
                 child: Column(children: [
-              const Text(
-                'Unforeseen malfunctions have occurred',
-                style: TextStyle(fontSize: 20),
+              Text(
+                'Произошла ошибка, попробуйте еще раз',
+                style: TextStyle(fontSize: 20.sp),
               ),
               TextButton(
                   onPressed: () {
                     _cryptoListBloc.add(LoadCryptoList());
                   },
-                  child: const Text('Try again'))
+                  child: const Text('Обновить'))
             ]));
           }
           return const Center(child: CircularProgressIndicator());

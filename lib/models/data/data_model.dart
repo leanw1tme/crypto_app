@@ -1,4 +1,4 @@
-import 'package:crypto_app/models/data/quote_model.dart';
+import 'data.dart';
 
 class DataModel {
   final int id;
@@ -39,7 +39,7 @@ class DataModel {
       json["num_market_pairs"],
       json["date_added"],
       json["tags"],
-      json["max_supply"] == null ? 0 : json["max_supply"],
+      json["max_supply"] ?? 0,
       json["circulating_supply"],
       json["total_supply"],
       json["cmc_rank"],

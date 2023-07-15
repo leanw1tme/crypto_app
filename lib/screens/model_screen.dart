@@ -1,13 +1,11 @@
 import 'dart:math';
 
-import 'package:crypto_app/models/data/usd_model.dart';
+import 'package:crypto_app/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../models/data/chart_data.dart';
-import '../models/data/data_model.dart';
 import '../theme/colors.dart';
-import '../widgets/model/coin_chart_widget.dart';
+import 'package:crypto_app/widgets/widgets.dart';
 
 class ModelScreen extends StatefulWidget {
   const ModelScreen({super.key, required this.coin, required this.price});
@@ -26,6 +24,7 @@ class _ModelScreenState extends State<ModelScreen> {
     Random random = Random();
     int next(int min, int max) => random.nextInt(max - min);
     var coinPrice = widget.coin.quoteModel.usdModel;
+    //Конвертировка данных даты под формат
     DateTime parseDate =
         DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(coinPrice.lastUpdated);
     var inputDate = DateTime.parse(parseDate.toString());
@@ -53,6 +52,7 @@ class _ModelScreenState extends State<ModelScreen> {
       ),
       body: Column(
         children: [
+          //Основной виджет модели
           CoinChartWidget(
               coin: widget.coin,
               coinPrice: coinPrice,

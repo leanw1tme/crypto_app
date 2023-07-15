@@ -1,4 +1,4 @@
-import 'usd_model.dart';
+import 'data.dart';
 
 class QuoteModel {
   final UsdModel usdModel;

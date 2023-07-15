@@ -1,7 +1,7 @@
-import 'package:crypto_app/widgets/home/coin_list_card.dart';
+import 'package:crypto_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-
-import '../../models/data/data_model.dart';
+import 'package:crypto_app/models/models.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CoinWidget extends StatelessWidget {
   final List<DataModel> coins;
@@ -14,15 +14,15 @@ class CoinWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.separated(
         itemCount: 12,
-        padding: const EdgeInsets.only(top: 15),
+        padding: EdgeInsets.only(top: 15.h),
         separatorBuilder: (context, index) {
-          return const Column(
+          return Column(
             children: [
               SizedBox(
-                height: 5,
+                height: 5.h,
               ),
-              Divider(),
-              SizedBox(height: 5),
+              const Divider(),
+              SizedBox(height: 5.h),
             ],
           );
         },
